@@ -1,0 +1,48 @@
+<script>
+	var clouds = [];
+
+	var positions = [ 
+			[0, 0, 0.5], 
+			[550, 200, 0.25], 
+			[300, 400, 0.33], 
+			[600, 320, 0.6], 
+			[900, 70, 0.45] 
+	];
+
+	var speeds = [
+		0.5, 0.65, 0.6, 0.45, 0.46
+	]
+
+	var heightsGame = new Phaser.Game($(window).width()-50 ,$(window).height()-50, Phaser.Canvas, '', {preload: preload, create: create, update:update})
+
+	function preload(){
+		heightsGame.load.image('cloud', './images/cloud.png');
+	}
+
+	function create(){
+		this.game.canvas.class = 'heights-canvas';
+
+		heightsGame.stage.backgroundColor = '#7ec0ee';
+
+		for (var i = 0; i < positions.length; i++) {
+			var cloud = heightsGame.add.sprite(positions[i][0],positions[i][1],'cloud');
+			cloud.scale.setTo(positions[i][2], positions[i][2]);
+			clouds.push(cloud);
+		};
+	};
+
+	function update(){
+		var height = heightsGame.world.height;
+
+		// update clouds
+		for (var i = 0; i < clouds.length; i++) {
+			var cloud = clouds[i];
+			var speed = speeds[i];
+			cloud.y -= speed;
+
+			if (cloud.y < -cloud.height) {
+				cloud.y = height;
+			}
+		};
+	};
+</script>

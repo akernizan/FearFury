@@ -1,0 +1,38 @@
+<script>
+var eyes =[];
+var eyePosition = [
+	[0,0,0.5],
+	[600,320,0.5],
+	[944,400,0.5],
+	[20,400,0.5],
+	[100,200,0.5]
+
+]
+	var darkGame = new Phaser.Game($(window).width()-50, $(window).height()-50, Phaser.Canvas,'',{preload: preload, create: create, update: update})
+
+	function preload(){
+		darkGame.load.image('monster', './images/yellow-eye.png');
+		
+	}
+
+	function create(){
+		darkGame.canvas.id = 'small-space'
+		darkGame.stage.backgroundColor = '#222';
+		for(var i=0; i<20; i++){
+			var yellowEye = darkGame.add.sprite(eyePosition[i][0],eyePosition[i][1],'monster');
+			yellowEye.scale.setTo(eyePosition[i][2],eyePosition[i][2]);
+			eyePosition.push(yellowEye)
+		}
+
+
+	 
+	 
+
+	}
+	
+	function update(){
+
+	}
+
+
+</script>
