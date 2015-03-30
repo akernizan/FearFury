@@ -15,24 +15,39 @@
 
 	var heightsGame = new Phaser.Game($(window).width()-50 ,$(window).height()-50, Phaser.Canvas, '', {preload: preload, create: create, update:update})
 
+	var stickSpeed = 7;
+	
 	function preload(){
 		heightsGame.load.image('cloud', './images/cloud.png');
+		heightsGame.load.image('man', './images/stickman.png')
 	}
+
 
 	function create(){
 		this.game.canvas.class = 'heights-canvas';
-
 		heightsGame.stage.backgroundColor = '#7ec0ee';
 
+		//add and scale stick figure
+		stickMan = heightsGame.add.sprite(100,100,'man');
+		stickMan.scale.setTo(0.25,0.25);
+
+		//add clouds to canvas
 		for (var i = 0; i < positions.length; i++) {
 			var cloud = heightsGame.add.sprite(positions[i][0],positions[i][1],'cloud');
 			cloud.scale.setTo(positions[i][2], positions[i][2]);
 			clouds.push(cloud);
 		};
+		//adding keyboard code to move stick figure
+		upKey = heightsGame.input.keyboard.addKey(Phaser.Keyboard.UP);
+    downKey = heightsGame.input.keyboard.addKey(Phaser.Keyboard.DOWN);
+    leftKey = heightsGame.input.keyboard.addKey(Phaser.Keyboard.LEFT);
+    rightKey = heightsGame.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+
 	};
 
 	function update(){
 		var height = heightsGame.world.height;
+		var width = heightsGame.world.width;
 
 		// update clouds
 		for (var i = 0; i < clouds.length; i++) {
@@ -44,5 +59,28 @@
 				cloud.y = height;
 			}
 		};
+
+		if(stickMan.x < -stickMan.width){
+			stickMan.x = width;
+		}
+		if(stickMan.y < -stickMan.height){
+			stickMan.y = height;
+		}
+
+		if (upKey.isDown){
+			stickMan.y-= stickSpeed;
+		}else if(downKey.isDown){
+			stickMan.y+= stickSpeed;
+		} 
+		if (leftKey.isDown){
+			stickMan.x-= stickSpeed;
+		}else if (rightKey.isDown){
+			stickMan.x+= stickSpeed;
+			console.log(stickMan.x)
+		}
+
+
+
+
 	};
 </script>

@@ -2,7 +2,7 @@
     <div class="site-wrapper-inner">
       <div class="cover-container">
         <div class="inner cover">
-          <h1 class="cover-heading">FEAR</h1>
+          <h1 class="cover-heading">FEARS</h1>
           <p class="lead">Face Them</p>
           <p class="lead text-center">
             <a href="/heights" class="btn btn-lg btn-default" id="ctn-game">Continue</a>
@@ -52,17 +52,17 @@
   
 
   function update(){
-    var height = game.world.height;
+    // var height = game.world.height;
 
-    // update clouds
-    for (var i = 0; i < clouds.length; i++) {
-      var cloud = clouds[i];
-      var speed = speeds[i];
-      cloud.y -= speed;
+    // // update clouds
+    // for (var i = 0; i < clouds.length; i++) {
+    //   var cloud = clouds[i];
+    //   var speed = speeds[i];
+    //   cloud.y -= speed;
 
-      if (cloud.y < -cloud.height) {
-        cloud.y = height;
-      }
-    };
+    //   if (cloud.y < -cloud.height) {
+    //     cloud.y = height;
+    //   }
+    // };
   };
 </script>

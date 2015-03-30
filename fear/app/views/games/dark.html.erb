@@ -1,11 +1,12 @@
 <script>
 var eyes =[];
 var eyePosition = [
-	[0,0,0.5],
+	[500,100,0.5],
 	[600,320,0.5],
 	[944,400,0.5],
-	[20,400,0.5],
-	[100,200,0.5]
+	[100,350,0.5],
+	[350,200,0.5],
+	[800,150,0.5]
 
 ]
 	var darkGame = new Phaser.Game($(window).width()-50, $(window).height()-50, Phaser.Canvas,'',{preload: preload, create: create, update: update})
@@ -18,17 +19,18 @@ var eyePosition = [
 	function create(){
 		darkGame.canvas.id = 'small-space'
 		darkGame.stage.backgroundColor = '#222';
-		for(var i=0; i<20; i++){
-			var yellowEye = darkGame.add.sprite(eyePosition[i][0],eyePosition[i][1],'monster');
-			yellowEye.scale.setTo(eyePosition[i][2],eyePosition[i][2]);
-			eyePosition.push(yellowEye)
+		// darkGame.add.tileSprite(0,0,100,100,'monster');
+	
+		for(var i=0; i<eyePosition.length; i++){
+			var sprite = darkGame.add.sprite(eyePosition[i][0],eyePosition[i][1] ,'monster');
+			sprite.anchor.setTo(eyePosition[i][2],eyePosition[i][2]);
+			sprite.scale.setTo(eyePosition[i][2],eyePosition[i][2]);
+			sprite.alpha = 0;
+			darkGame.add.tween(sprite).to({alpha:1}, 5000,Phaser.Easing.Linear.None, true,0,8000,true);
 		}
 
-
-	 
-	 
-
 	}
+
 	
 	function update(){
 
