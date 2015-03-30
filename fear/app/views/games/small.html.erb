@@ -1,13 +1,16 @@
-<!-- <script>
-	var game = new Phaser.Game($(window).width()-50, $(window).height()-50, Phaser.Canvas,'',{preload: preload, create: create, update: update})
+<script>
+	var smallGame = new Phaser.Game($(window).width()-50, $(window).height()-50, Phaser.Canvas,'',{preload: preload, create: create, update: update})
 
 	function preload(){
-
+		smallGame.load.image('wall', './images/greywall.png')
 	}
 
 	function create(){
-		this.game.canvas.id = 'small-space'
-		game.stage.backgroundColor = "#b3b3b3";
+		// this.smallGame.canvas.id = 'small-space'
+		smallGame.stage.backgroundColor = "#222";
+		var greywall = smallGame.add.image(100,0,'wall');
+		greywall.scale.setTo(0.5,.6)
+		
 	}
 	
 	function update(){
@@ -15,4 +18,4 @@
 	}
 
 
-</script> -->
+</script>
