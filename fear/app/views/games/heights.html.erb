@@ -24,18 +24,25 @@
 
 
 	function create(){
+	
 		this.game.canvas.class = 'heights-canvas';
 		heightsGame.stage.backgroundColor = '#7ec0ee';
-
 		//add and scale stick figure
 		stickMan = heightsGame.add.sprite(100,100,'man');
-		stickMan.scale.setTo(0.25,0.25);
+		stickMan.scale.setTo(0.2,0.2);
+		stickMan.gravity = 200;
+
+		heightsGame.physics.startSystem(Phaser.Physics.ARCADE);
+		heightsGame.physics.enable(stickMan, Phaser.Physics.ARCADE);
+		stickMan.body.collideWorldBounds = true;
+		
 
 		//add clouds to canvas
 		for (var i = 0; i < positions.length; i++) {
 			var cloud = heightsGame.add.sprite(positions[i][0],positions[i][1],'cloud');
 			cloud.scale.setTo(positions[i][2], positions[i][2]);
 			clouds.push(cloud);
+			
 		};
 		//adding keyboard code to move stick figure
 		upKey = heightsGame.input.keyboard.addKey(Phaser.Keyboard.UP);
@@ -59,13 +66,6 @@
 				cloud.y = height;
 			}
 		};
-
-		if(stickMan.x < -stickMan.width){
-			stickMan.x = width;
-		}
-		if(stickMan.y < -stickMan.height){
-			stickMan.y = height;
-		}
 
 		if (upKey.isDown){
 			stickMan.y-= stickSpeed;
