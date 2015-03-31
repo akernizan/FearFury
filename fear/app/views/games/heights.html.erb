@@ -1,6 +1,21 @@
+<div class="modal fade  text-center" id="loser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+      <!--   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>  -->
+      </div>
+      <div class="modal-body">
+      	<p class='h1'>YOU LOSE!!</p>
+      </div>
+      <div class="modal-footer">
+        <a type="button" href='/' class="btn btn-sm btn-default col-sm-offset-3 col-sm-6">PLAY AGAIN?</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <script>
-
-
 	var clouds = [];
 	var diamonds = [];
 	var platforms = [];
@@ -56,12 +71,15 @@ var platformPos = [
 
 	function create(){
 	
-		this.game.canvas.class = 'heights-canvas';
+		var height = heightsGame.world.height;
+		var width = heightsGame.world.width;
+
+		this.game.canvas.id = 'heights-canvas';
 		heightsGame.stage.backgroundColor = '#7ec0ee';
 
 		// enabled arcade physics to game 
 		heightsGame.physics.startSystem(Phaser.Physics.ARCADE);
-		heightsGame.physics.arcade.gravity.y = 100;
+		heightsGame.physics.arcade.gravity.y = 150;
 
 	//add clouds to canvas
 		for (var i = 0; i < positions.length; i++) {
@@ -69,9 +87,6 @@ var platformPos = [
 			cloud.scale.setTo(positions[i][2], positions[i][2]);
 			clouds.push(cloud);
 		};
-
-
-
 
 		// add platforms to canvas 
 		platforms = heightsGame.add.group();
@@ -113,14 +128,11 @@ var platformPos = [
 		stickMan = heightsGame.add.sprite(150,heightsGame.world.height-150,'man');
 		stickMan.scale.setTo(0.1,0.1);
 		heightsGame.physics.arcade.enable(stickMan);
-		// stickMan.body.gravity.y = 100
+		stickMan.body.gravity.y = 10
 		stickMan.body.bounce.y = 0.3;
 		stickMan.body.collideWorldBounds = true;
 
-		fireBall = heightsGame.add.sprite(200,200,'fire');
-		fireBall.scale.setTo(0.5,0.5);
-		heightsGame.physics.arcade.enable(fireBall);
-		fireBall.body.collideWorldBounds = true;
+	
 	
 		// add scoreboard 
 		scoreText = heightsGame.add.text(16,16,'score:0', {
@@ -160,6 +172,28 @@ var platformPos = [
     leftKey = heightsGame.input.keyboard.addKey(Phaser.Keyboard.LEFT);
     rightKey = heightsGame.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
 
+    fireballs = heightsGame.add.group();
+		fireballs.enableBody = true;
+
+    var fireShooter = function(x,y, size, velocity){
+			var fireball_array = ['fire', 'fire', 'fire', 'fire','fire','fire'];
+			random_fire = fireball_array[Math.floor(fireball_array.length * Math.random())];
+			fireball = fireballs.create(x,y,random_fire);
+			heightsGame.physics.arcade.enable(fireball);
+			fireball.body.immovable = true;
+			fireball.scale.setTo(size,size);
+			fireball.body.velocity.x = velocity;
+			return fireball;
+		}
+
+		// set interval to shoot firballs
+		 setInterval(function(){
+		 	 fireShooter(900,height/4,0.9,-600),
+			 // fireShooter(100,500,0.7,600),
+			 fireShooter(0,height/2,0.7,600),
+			 fireShooter(700, height/3, 0.6, 600),
+			 fireShooter(700, 0, 0.6, -600)
+			}, 2000)
 	};
 
 
@@ -172,26 +206,28 @@ var platformPos = [
 		scoreText.text = 'Score: ' + score;
 	}
 
+	function deadMan(stickMan, fireball){
+		// if stickman gets hit by fireball
+		// he gets killed
+		stickMan.kill();
+
+
+		// activate modal
+		$('#loser').modal('show');
+	}
 
 
 	function update(){
 
-		heightsGame.physics.arcade.collide(stickMan, platforms)
-		heightsGame.physics.arcade.collide(diamonds, platforms)
-		heightsGame.physics.arcade.collide(fireBall,platforms)
-		heightsGame.physics.arcade.overlap(stickMan, diamonds,collectDiamonds, null, this)
+		heightsGame.physics.arcade.collide(stickMan, platforms);
+		heightsGame.physics.arcade.collide(diamonds, platforms);
+		// heightsGame.physics.arcade.collide(fireball,platforms)
+		heightsGame.physics.arcade.overlap(stickMan, diamonds,collectDiamonds, null, this);
+		heightsGame.physics.arcade.collide(stickMan, fireballs, deadMan, null, this);
 	
 
 		var height = heightsGame.world.height;
 		var width = heightsGame.world.width;
-
-		// if(ledge.x < width){
-		// 	ledge.x += 2
-		// }else if (ledge.x === width){
-		// 	ledge.x -= 2
-		// }
-		
-		// fireBall.x -= 2
 
 		// update clouds
 		for (var i = 0; i < clouds.length; i++) {
