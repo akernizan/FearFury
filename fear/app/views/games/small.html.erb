@@ -21,6 +21,10 @@ var scoreText;
 var melonScore = 0;
 var melonText;
 
+var wallIsMoving = false;
+var wallSpeed = 0.75;
+var wallSwapInterval;
+
 	var smallGame = new Phaser.Game(1205 - 50 ,581 -50, Phaser.Canvas,'',{preload: preload, create: create, update: update})
 
 	function preload(){
@@ -30,13 +34,14 @@ var melonText;
 		smallGame.load.image('diamond', './images/diamond.png');
 		smallGame.load.image('man', './images/stickman.png');
 		smallGame.load.image('melon', './images/melon.png');
-
 	}
 
 	function create(){
+		wallSwapInterval = setInterval(function () {
+			wallIsMoving = !wallIsMoving;
+		}, 2000)
+
 		smallGame.stage.backgroundColor = "#334";
-
-
 
 		// melonText = smallGame.add.text(16,40, 'Melons:0',{
 		// 	fontSize: '32px', fill: '#fff'
@@ -48,7 +53,7 @@ var melonText;
 		jewels = smallGame.add.group();
 		jewels.enableBody = true;
 
-		for(var i =0; i < 40; i++){
+		for(var i =0; i < 35; i++){
 			// diamond = heightsGame.add.sprite(diamondPos[i][0],diamondPos[i][1], 'diamond' );
 			// diamond.scale.setTo(diamondPos[i][2], diamondPos[i][2]);
 			// diamonds.push(diamond);
@@ -92,7 +97,7 @@ var melonText;
 		step4.body.allowGravity = false;
 		step4.body.immovable = true;
 
-		step5 = steps.create(-100,510,'darkground');
+		step5 = steps.create(-100,505,'darkground');
 		step5.scale.setTo(1,1)
 		step5.body.allowGravity = false;
 		step5.body.immovable = true;
@@ -113,10 +118,11 @@ var melonText;
 		greywall = ceiling.create(-10,-700,'wall');
 		greywall.scale.setTo(1,1);
 		greywall.body.allowGravity = false;
-		// smallGame.physics.arcade.enable(greywall);
-		// greywall.body.collideWorldBounds = true;
+		smallGame.physics.arcade.enable(greywall);
+		greywall.body.collideWorldBounds = false;
+		greywall.body.setSize(300,300,400,400);
 
-				// add scoreboard 
+		// add scoreboard 
 		scoreText = smallGame.add.text(16,16,'Score:0', {
 			fontSize: '32px', fill: '#fff'
 		});
@@ -159,14 +165,14 @@ var melonText;
 
 	
 	function update(){
-		// setInterval(function(){
-		setTimeout(function(){
-			greywall.y += 0.05;
-		},2000)
-
+		if (wallIsMoving) {
+			greywall.y += wallSpeed;
+		}
+		
 		smallGame.physics.arcade.collide(jewels, steps)
 		smallGame.physics.arcade.collide(melons, steps)
 		smallGame.physics.arcade.collide(player, steps)
+
 		smallGame.physics.arcade.collide(player, ceiling, deadMan, null, this)
 		smallGame.physics.arcade.overlap(player, ceiling, deadMan, null, this)
 
@@ -186,11 +192,10 @@ var melonText;
 		// if(step4.y < -step4.height){
 		// 	step4.y = smallGame.world.height-100;
 		// }
-		// if(greywall.y >= 531){
-		// 	greywall.y += 0
-		// 	} else {
-		// 		greywall.y += 0.
-		// 	}
+		if(greywall.y > -50 && wallSpeed != 0){
+			clearInterval(wallSwapInterval);
+			wallIsMoving = false;
+		} 
 
 		// 	console.log(greywall.y)
 		// }, 5000)
@@ -206,8 +211,6 @@ var melonText;
 		}else if (rightKey.isDown){
 			player.x+= stickSpeed;
 		}
-
-		
 	}
 
 
