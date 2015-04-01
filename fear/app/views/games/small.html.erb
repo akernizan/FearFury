@@ -1,20 +1,62 @@
+<div class="modal fade  text-center" id="smLoser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+      <!--   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>  -->
+      </div>
+      <div class="modal-body">
+      	<p class='h1'>YOU LOSE!!</p>
+      </div>
+      <div class="modal-footer">
+        <a type="button" href='/' class="btn btn-sm btn-default col-sm-offset-3 col-sm-6">PLAY AGAIN?</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
-	var smallGame = new Phaser.Game($(window).width()-50, $(window).height()-50, Phaser.Canvas,'',{preload: preload, create: create, update: update})
+	var smallGame = new Phaser.Game(1205 - 50 ,581 -50, Phaser.Canvas,'',{preload: preload, create: create, update: update})
 
 	function preload(){
-		smallGame.load.image('wall', './images/greywall.png')
+		smallGame.load.image('wall', './images/ceiling.png');
+		smallGame.load.image('platform', './images/longplatform.png');
+		smallGame.load.image('diamond', './images/diamond.png');
+
 	}
 
 	function create(){
-		// this.smallGame.canvas.id = 'small-space'
 		smallGame.stage.backgroundColor = "#222";
-		var greywall = smallGame.add.image(100,0,'wall');
-		greywall.scale.setTo(0.5,.6)
-		
+
+		smallGame.physics.startSystem(Phaser.Physics.ARCADE);
+		smallGame.physics.arcade.gravity.y = 150;
+
+
+		jewel = smallGame.add.image(100,100, 'diamond');
+
+		var step = smallGame.add.image(200, 300, 'platform')
+		step.scale.setTo(0.25,0.25)
+	
+		greywall = smallGame.add.image(-10,-700,'wall');
+		greywall.scale.setTo(1,1);
+		smallGame.physics.arcade.enable(greywall,Phaser.Physics.ARCADE );
+		// greywall.body.collideWorldBounds = true;
+
 	}
 	
 	function update(){
+		// setInterval(function(){
+	
+		if(greywall.y >= 531){
+			greywall.y += 0
+			} else {
+				greywall.y += 0.5
+			}
 
+			console.log(greywall.y)
+		// }, 5000)
+
+
+		
 	}
 
 
