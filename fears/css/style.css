@@ -1,0 +1,75 @@
+body{
+	overflow: hidden;
+}
+
+#fear-canvas{
+	background: #7ec0ee;
+}
+
+
+#layer1{
+	width: 1000px;
+	height: 1000px;
+	background: #222;
+	z-index: -1;
+	position: absolute;
+	overflow: hidden;
+}
+/*inkspace */
+.eye{
+	width: 50px;
+	height: 70px;
+	background: white;
+	border-radius: 100%;
+	z-index: 1;
+	float: left;
+	margin-left: 5px;
+	margin-top: 50px;
+	font-size: 5em;
+	text-align: center;
+}
+
+.eye-div{
+	margin-left: 10%;
+	margin-top: 10%;
+	position: relative;
+}
+
+.monster-div{
+	width: 100%;
+	height: 100px;
+	margin-left: 25%;
+/*	margin-top: 2%;*/
+	overflow: hidden;
+	padding-top: 20px;
+	padding-bottom: 21px
+}
+
+.monster, .monster2{
+		background-color: 'yellow';
+		width: 50;
+		height: 50;
+		z-index: 1;
+		margin-top': 10;
+		margin-left': 10;
+		display: inline-block;
+		border-bottom-right-radius:25;
+		border-bottom-left-radius: 25;
+		font-size: 20;
+		text-align: center;
+		padding-bottom: 10px;
+}
+
+.advice{
+	z-index: -1;
+	font-size: 1.5em;
+	display: inline-block;
+	margin-left: 30px;
+	color: #222;
+}
+
+.message{
+	font-size: 1.5em;
+}
+
+

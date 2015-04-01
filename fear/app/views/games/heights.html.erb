@@ -125,14 +125,13 @@ var platformPos = [
 
 
 		// add and scale stick figure
-		stickMan = heightsGame.add.sprite(150,heightsGame.world.height-150,'man');
+		stickMan = heightsGame.add.sprite(1200,0,'man');
 		stickMan.scale.setTo(0.1,0.1);
 		heightsGame.physics.arcade.enable(stickMan);
-		stickMan.body.gravity.y = 10
+		// stickMan.body.gravity.y = 10
 		stickMan.body.bounce.y = 0.3;
 		stickMan.body.collideWorldBounds = true;
-
-	
+		
 	
 		// add scoreboard 
 		scoreText = heightsGame.add.text(16,16,'score:0', {
@@ -202,7 +201,7 @@ var platformPos = [
 		diamond.kill();
 
 		// add and update the score
-		score += 50;
+		score += 20;
 		scoreText.text = 'Score: ' + score;
 	}
 

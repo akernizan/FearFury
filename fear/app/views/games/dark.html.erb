@@ -9,7 +9,7 @@ var eyePosition = [
 	[800,150,0.5]
 
 ]
-	var darkGame = new Phaser.Game($(window).width()-50, $(window).height()-50, Phaser.Canvas,'',{preload: preload, create: create, update: update})
+	var darkGame = new Phaser.Game(1205 - 50 ,581 -50, Phaser.Canvas,'',{preload: preload, create: create, update: update})
 
 	function preload(){
 		darkGame.load.image('monster', './images/yellow-eye.png');
