@@ -20,6 +20,7 @@
 	function preload(){
 		smallGame.load.image('wall', './images/ceiling.png');
 		smallGame.load.image('platform', './images/longplatform.png');
+		smallGame.load.image('darkground', './images/darkground.png');
 		smallGame.load.image('diamond', './images/diamond.png');
 
 	}
@@ -30,29 +31,86 @@
 		smallGame.physics.startSystem(Phaser.Physics.ARCADE);
 		smallGame.physics.arcade.gravity.y = 150;
 
+		jewels = smallGame.add.group();
+		jewels.enableBody = true;
 
-		jewel = smallGame.add.image(100,100, 'diamond');
+		for(var i =0; i < 40; i++){
+			// diamond = heightsGame.add.sprite(diamondPos[i][0],diamondPos[i][1], 'diamond' );
+			// diamond.scale.setTo(diamondPos[i][2], diamondPos[i][2]);
+			// diamonds.push(diamond);
+			var jewel = jewels.create(i * 30, 0, 'diamond');
+			jewel.scale.setTo(0.5,0.5)
+			jewel.body.gravity.y = 6;
+			jewel.body.bounce.y = 0.2 + Math.random() * 0.2;
+		}
 
-		var step = smallGame.add.image(200, 300, 'platform')
+		steps = smallGame.add.group();
+		steps.enableBody = true;
+
+		var step = steps.create(100, 300, 'platform')
 		step.scale.setTo(0.25,0.25)
+		step.body.allowGravity = false;
+		step.body.immovable = true;
+		// step.body.collideWorldBounds = true;
+
+		step2 = steps.create(800,400,'platform');
+		step2.scale.setTo(0.25,0.25)
+		step2.body.allowGravity = false;
+		step2.body.immovable = true;
+
+		step3 = steps.create(100,420,'platform');
+		step3.scale.setTo(0.25,0.25)
+		step3.body.allowGravity = false;
+		step3.body.immovable = true;
 	
+		step4 = steps.create(700,100,'platform');
+		step4.scale.setTo(0.25,0.25)
+		step4.body.allowGravity = false;
+		step4.body.immovable = true;
+
+		step5 = steps.create(0,530,'darkground');
+		step5.scale.setTo(1,1)
+		step5.body.allowGravity = false;
+		step5.body.immovable = true;
+		// step4.body.collideWorldBounds = true;
+
+
+
 		greywall = smallGame.add.image(-10,-700,'wall');
 		greywall.scale.setTo(1,1);
-		smallGame.physics.arcade.enable(greywall,Phaser.Physics.ARCADE );
+		smallGame.physics.arcade.enable(greywall);
 		// greywall.body.collideWorldBounds = true;
 
+		smallGame.add.tween(step4).to({ y: 200 }, 4000, Phaser.Easing.Quadratic.InOut, true, 0, 3000, true);
+		smallGame.add.tween(step).to({ x: 300 }, 4000, Phaser.Easing.Quadratic.InOut, true, 0, 3000, true);
+
 	}
+
 	
 	function update(){
 		// setInterval(function(){
-	
-		if(greywall.y >= 531){
-			greywall.y += 0
-			} else {
-				greywall.y += 0.5
-			}
+		// setTimeout(function(){
+			greywall.y += 0.04;
+		// },2000)
+		smallGame.physics.arcade.collide(jewels, steps)
+		// smallGame.physics.arcade.collide()
 
-			console.log(greywall.y)
+		// step4.y -= 0.8;
+
+		// if(step4.x < -step4.width){
+		// 	step4.x = smallGame.world.width;
+		// }
+
+		// if(step4.y < -step4.height){
+		// 	step4.y = smallGame.world.height-100;
+		// }
+		// if(greywall.y >= 531){
+		// 	greywall.y += 0
+		// 	} else {
+		// 		greywall.y += 0.
+		// 	}
+
+		// 	console.log(greywall.y)
 		// }, 5000)
 
 
