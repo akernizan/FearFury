@@ -53,6 +53,9 @@
 	var score = 0;
 	var scoreText; 
 
+	var height;
+	var width;
+
 	var heightsGame = new Phaser.Game(1205 - 50 ,581 -50, Phaser.Canvas, '', {preload: preload, create: create, update:update})
 
 	var stickSpeed = 3;
@@ -69,8 +72,8 @@
 
 	function create(){
 	
-		var height = heightsGame.world.height;
-		var width = heightsGame.world.width;
+		height = heightsGame.world.height;
+		width = heightsGame.world.width;
 
 		this.game.canvas.id = 'heights-canvas';
 		heightsGame.stage.backgroundColor = '#7ec0ee';
@@ -128,7 +131,7 @@
 		heightsGame.physics.arcade.enable(stickMan);
 		// stickMan.body.setSize(20,20,40,32);
 		// stickMan.body.gravity.y = 10
-		stickMan.body.bounce.y = 0.3;
+		stickMan.body.bounce.y = 0.6;
 		stickMan.body.collideWorldBounds = true;
 
 		
@@ -164,6 +167,7 @@
 			fireball.scale.setTo(size,size);
 			fireball.body.setSize(10,10,40,32);
 			fireball.body.velocity.x = velocity;
+			fireball.lifespan = 2000;
 			return fireball;
 		}
 
@@ -202,14 +206,11 @@
 		$('#loser').modal('show');
 	}
 
-	var newLevel = function(){
-
+		var newLevel = function(){
 		if(score === 500){
-			setTimeout(function(){
-			window.location.replace("http://localhost:3000/small");
-
-		$('#heights-canvas').fadeOut(3000, function(){newLevel()});
-			}, 400)
+			$('#heights-canvas').fadeOut(3000, function () {
+				window.location.replace("<%= small_url %>");
+			});
 		}
 	}
 
@@ -222,9 +223,6 @@
 		heightsGame.physics.arcade.overlap(stickMan, diamonds,collectDiamonds, null, this);
 		heightsGame.physics.arcade.collide(stickMan, fireballs, deadMan, null, this);
 	
-
-		var height = heightsGame.world.height;
-		var width = heightsGame.world.width;
 
 		// update clouds
 		for (var i = 0; i < clouds.length; i++) {
