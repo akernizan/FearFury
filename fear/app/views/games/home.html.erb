@@ -1,0 +1,68 @@
+<div class="site-wrapper text-center">
+    <div class="site-wrapper-inner">
+      <div class="cover-container">
+        <div class="inner cover">
+          <h1 class="cover-heading">FEARS</h1>
+          <p class="lead">Face Them</p>
+          <p class="lead text-center">
+            <a href="/heights" class="btn btn-lg btn-default" id="ctn-game">Continue</a>
+          </p>
+        </div>
+
+        <div class="mastfoot">
+          <div class="inner">
+            <p>Akosua Kernizan 2015 &copy;</p>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<script>
+  var clouds = [];
+  var positions = [ 
+      [0, 0, 0.5], 
+      [550, 200, 0.25], 
+      [300, 400, 0.33], 
+      [600, 320, 0.6], 
+      [900, 70, 0.45] 
+  ];
+  var speeds = [
+    0.5, 0.65, 0.6, 0.45, 0.46
+  ]
+
+
+  var game = new Phaser.Game(1155,531, Phaser.Canvas, '', {preload: preload, create: create, update:update})
+
+  function preload(){
+    game.load.image('cloud', './images/cloud.png');
+  }
+
+  function create(){
+    this.game.canvas.id = 'home-canvas';
+    game.stage.backgroundColor = '#7ec0ee';
+    
+    for (var i = 0; i < positions.length; i++) {
+      var cloud = game.add.sprite(positions[i][0],positions[i][1],'cloud');
+      cloud.scale.setTo(positions[i][2], positions[i][2]);
+      clouds.push(cloud);
+    };
+  };
+
+  
+
+  function update(){
+    // var height = game.world.height;
+
+    // // update clouds
+    // for (var i = 0; i < clouds.length; i++) {
+    //   var cloud = clouds[i];
+    //   var speed = speeds[i];
+    //   cloud.y -= speed;
+
+    //   if (cloud.y < -cloud.height) {
+    //     cloud.y = height;
+    //   }
+    // };
+  };
+</script>

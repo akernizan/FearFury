@@ -1,0 +1,255 @@
+<div class="modal fade  text-center" id="loser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+      <!--   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>  -->
+      </div>
+      <div class="modal-body">
+      	<p class='h1'>YOU LOSE!!</p>
+      </div>
+      <div class="modal-footer">
+        <a type="button" href='/' class="btn btn-sm btn-default col-sm-offset-3 col-sm-6">PLAY AGAIN?</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+	var clouds = [];
+	var diamonds = [];
+	var platforms = [];
+
+	var positions = [ 
+			[0, 0, 0.5], 
+			[550, 200, 0.25], 
+			[300, 400, 0.33], 
+			[600, 320, 0.6], 
+			[900, 70, 0.45] 
+	];
+
+	var diamondPos = [
+		[100,190,0.5],
+		[150,190,0.5],
+		[200,190,0.5],
+		[250,190,0.5],
+		[300,190,0.5],
+		[350,190,0.5],
+		[400,190,0.5]
+	]
+
+var platformPos = [
+	[-22,200, 0.25],
+	[916,400, 0.25],
+	[-22,450, 0.25],
+	[916,180, 0.25],
+
+
+	]
+
+
+	var speeds = [
+		0.5, 0.65, 0.6, 0.45, 0.46
+	]
+
+	var score = 0;
+	var scoreText; 
+
+	var heightsGame = new Phaser.Game(1205 - 50 ,581 -50, Phaser.Canvas, '', {preload: preload, create: create, update:update})
+
+	var stickSpeed = 3;
+	
+	function preload(){
+		heightsGame.load.image('cloud', './images/cloud.png');
+		heightsGame.load.image('man', './images/stickman.png');
+		heightsGame.load.image('diamond', './images/diamond.png');
+		heightsGame.load.image('platform', './images/longplatform.png');
+		heightsGame.load.image('ground', './images/ground.png');
+		heightsGame.load.image('fire', './images/red_ball.png')
+	}
+
+
+	function create(){
+	
+		var height = heightsGame.world.height;
+		var width = heightsGame.world.width;
+
+		this.game.canvas.id = 'heights-canvas';
+		heightsGame.stage.backgroundColor = '#7ec0ee';
+
+		// enabled arcade physics to game 
+		heightsGame.physics.startSystem(Phaser.Physics.ARCADE);
+		heightsGame.physics.arcade.gravity.y = 150;
+
+	//add clouds to canvas
+		for (var i = 0; i < positions.length; i++) {
+			var cloud = heightsGame.add.sprite(positions[i][0],positions[i][1],'cloud');
+			cloud.scale.setTo(positions[i][2], positions[i][2]);
+			clouds.push(cloud);
+		};
+
+		// add platforms to canvas 
+		platforms = heightsGame.add.group();
+			platforms.enableBody = true;
+
+			ledge = platforms.create(Math.floor(Math.random()*90),200, 'platform');
+			ledge.scale.setTo(0.25,0.25);
+			ledge.body.allowGravity = false;
+			ledge.body.immovable = true;
+
+			ledge2 = platforms.create(800,400,'platform');
+			ledge2.scale.setTo(0.25,0.25);
+			ledge2.body.allowGravity = false;
+			ledge2.body.immovable = true;
+
+			ledge3 = platforms.create(100,420,'platform');
+			ledge3.scale.setTo(0.25,0.25);
+			ledge3.body.allowGravity = false;
+			ledge3.body.immovable = true;
+
+
+			ledge4 = platforms.create(870,150,'platform');
+			ledge4.scale.setTo(0.25,0.25);
+			ledge4.body.allowGravity = false;
+			ledge4.body.immovable = true;
+		
+			ledge5 = platforms.create(0,530,'ground');
+			ledge5.body.allowGravity = false;
+			ledge5.body.immovable = true;
+
+			ledge6 = platforms.create(400,300,'platform');
+			ledge6.scale.setTo(0.25,0.25);
+			ledge6.body.allowGravity = false;
+			ledge6.body.immovable = true;
+			
+
+
+		// add and scale stick figure
+		stickMan = heightsGame.add.sprite(1200,0,'man');
+		stickMan.scale.setTo(0.1,0.1);
+		heightsGame.physics.arcade.enable(stickMan);
+		// stickMan.body.gravity.y = 10
+		stickMan.body.bounce.y = 0.3;
+		stickMan.body.collideWorldBounds = true;
+		
+	
+		// add scoreboard 
+		scoreText = heightsGame.add.text(16,16,'score:0', {
+			fontSize: '32px', fill: '#222'
+		});
+		// stickMan.body.bounce.y = 0.2;
+
+		// for(var i = 0; i < platformPos.length; i++){
+			// }
+
+			// ledge.body.collideWorldBounds = true;
+		// add platforms to canvas 
+		// for(var i =0; i < platformPos.length; i++){
+		// 	platform = heightsGame.add.sprite(platformPos[i][0], platformPos[i][1], 'platform')
+		// 	platform.scale.setTo(platformPos[i][2], platformPos[i][2])
+		// 	platform.body.immovable = true;
+		// 	platforms.push(platform)
+		// };
+
+		diamonds = heightsGame.add.group();
+		diamonds.enableBody = true;
+
+		// add more diamonds
+		for(var i =0; i < 40; i++){
+			// diamond = heightsGame.add.sprite(diamondPos[i][0],diamondPos[i][1], 'diamond' );
+			// diamond.scale.setTo(diamondPos[i][2], diamondPos[i][2]);
+			// diamonds.push(diamond);
+			var diamond = diamonds.create(i * 30, 0, 'diamond');
+			diamond.scale.setTo(0.5,0.5)
+			diamond.body.gravity.y = 6;
+			diamond.body.bounce.y = 0.2 + Math.random() * 0.2;
+		}
+
+		//adding keyboard code to move stick figure
+		upKey = heightsGame.input.keyboard.addKey(Phaser.Keyboard.UP);
+    downKey = heightsGame.input.keyboard.addKey(Phaser.Keyboard.DOWN);
+    leftKey = heightsGame.input.keyboard.addKey(Phaser.Keyboard.LEFT);
+    rightKey = heightsGame.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+
+    fireballs = heightsGame.add.group();
+		fireballs.enableBody = true;
+
+    var fireShooter = function(x,y, size, velocity){
+			var fireball_array = ['fire', 'fire', 'fire', 'fire','fire','fire'];
+			random_fire = fireball_array[Math.floor(fireball_array.length * Math.random())];
+			fireball = fireballs.create(x,y,random_fire);
+			heightsGame.physics.arcade.enable(fireball);
+			fireball.body.immovable = true;
+			fireball.scale.setTo(size,size);
+			fireball.body.velocity.x = velocity;
+			return fireball;
+		}
+
+		// set interval to shoot firballs
+		 setInterval(function(){
+		 	 fireShooter(900,height/4,0.9,-600),
+			 // fireShooter(100,500,0.7,600),
+			 fireShooter(0,height/2,0.7,600),
+			 fireShooter(700, height/3, 0.6, 600),
+			 fireShooter(700, 0, 0.6, -600)
+			}, 2000)
+	};
+
+
+	function collectDiamonds(stickMan, diamond){
+		// removes diamonds from canvas
+		diamond.kill();
+
+		// add and update the score
+		score += 20;
+		scoreText.text = 'Score: ' + score;
+	}
+
+	function deadMan(stickMan, fireball){
+		// if stickman gets hit by fireball
+		// he gets killed
+		stickMan.kill();
+
+
+		// activate modal
+		$('#loser').modal('show');
+	}
+
+
+	function update(){
+
+		heightsGame.physics.arcade.collide(stickMan, platforms);
+		heightsGame.physics.arcade.collide(diamonds, platforms);
+		// heightsGame.physics.arcade.collide(fireball,platforms)
+		heightsGame.physics.arcade.overlap(stickMan, diamonds,collectDiamonds, null, this);
+		heightsGame.physics.arcade.collide(stickMan, fireballs, deadMan, null, this);
+	
+
+		var height = heightsGame.world.height;
+		var width = heightsGame.world.width;
+
+		// update clouds
+		for (var i = 0; i < clouds.length; i++) {
+			var cloud = clouds[i];
+			var speed = speeds[i];
+			cloud.y -= speed;
+
+			if (cloud.y < -cloud.height) {
+				cloud.y = height;
+			}
+		};
+
+		// move stickman
+		if (upKey.isDown){
+			stickMan.y-= stickSpeed;
+		}else if(downKey.isDown){
+			stickMan.y+= stickSpeed;
+		} 
+		if (leftKey.isDown){
+			stickMan.x-= stickSpeed;
+		}else if (rightKey.isDown){
+			stickMan.x+= stickSpeed;
+		}
+
+	};
+</script>

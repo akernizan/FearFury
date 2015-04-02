@@ -1,0 +1,217 @@
+<div class="modal fade  text-center" id="smLoser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+      <!--   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>  -->
+      </div>
+      <div class="modal-body">
+      	<p class='h1'>YOU LOSE!!</p>
+      </div>
+      <div class="modal-footer">
+        <a type="button" href='/' class="btn btn-sm btn-default col-sm-offset-3 col-sm-6">PLAY AGAIN?</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var stickSpeed = 3;
+var score = 0;
+var scoreText; 
+var melonScore = 0;
+var melonText;
+
+var wallIsMoving = false;
+var wallSpeed = 0.75;
+var wallSwapInterval;
+
+	var smallGame = new Phaser.Game(1205 - 50 ,581 -50, Phaser.Canvas,'',{preload: preload, create: create, update: update})
+
+	function preload(){
+		smallGame.load.image('wall', './images/ceiling.png');
+		smallGame.load.image('platform', './images/longplatform.png');
+		smallGame.load.image('darkground', './images/darkground.png');
+		smallGame.load.image('diamond', './images/diamond.png');
+		smallGame.load.image('man', './images/stickman.png');
+		smallGame.load.image('melon', './images/melon.png');
+	}
+
+	function create(){
+		wallSwapInterval = setInterval(function () {
+			wallIsMoving = !wallIsMoving;
+		}, 2000)
+
+		smallGame.stage.backgroundColor = "#334";
+
+		// melonText = smallGame.add.text(16,40, 'Melons:0',{
+		// 	fontSize: '32px', fill: '#fff'
+		// });
+
+		smallGame.physics.startSystem(Phaser.Physics.ARCADE);
+		smallGame.physics.arcade.gravity.y = 150;
+
+		jewels = smallGame.add.group();
+		jewels.enableBody = true;
+
+		for(var i =0; i < 35; i++){
+			// diamond = heightsGame.add.sprite(diamondPos[i][0],diamondPos[i][1], 'diamond' );
+			// diamond.scale.setTo(diamondPos[i][2], diamondPos[i][2]);
+			// diamonds.push(diamond);
+			var jewel = jewels.create(i * 30, 0, 'diamond');
+			jewel.scale.setTo(0.5,0.5)
+			jewel.body.gravity.y = 6;
+			jewel.body.bounce.y = 0.02 + Math.random() * 0.02;
+		}
+
+		melons = smallGame.add.group();
+		melons.enableBody = true;
+
+		for(var i =0; i < 4; i++){
+			var melon = melons.create(i  * 200 , 0, 'melon');
+			// melon.scale.setTo(0.5,0.5);
+			melon.body.gravity.y = 6;
+			melon.body.bounce.y = 0.02 + Math.random() * 0.02;
+		}
+
+		steps = smallGame.add.group();
+		steps.enableBody = true;
+
+		var step = steps.create(100, 300, 'platform')
+		step.scale.setTo(0.25,0.25)
+		step.body.allowGravity = false;
+		step.body.immovable = true;
+		// step.body.collideWorldBounds = true;
+
+		step2 = steps.create(800,400,'platform');
+		step2.scale.setTo(0.25,0.25)
+		step2.body.allowGravity = false;
+		step2.body.immovable = true;
+
+		step3 = steps.create(100,420,'platform');
+		step3.scale.setTo(0.25,0.25)
+		step3.body.allowGravity = false;
+		step3.body.immovable = true;
+	
+		step4 = steps.create(700,275,'platform');
+		step4.scale.setTo(0.25,0.25)
+		step4.body.allowGravity = false;
+		step4.body.immovable = true;
+
+		step5 = steps.create(-100,505,'darkground');
+		step5.scale.setTo(1,1)
+		step5.body.allowGravity = false;
+		step5.body.immovable = true;
+		// step4.body.collideWorldBounds = true;
+
+		// add and scale stick figure
+		player = smallGame.add.sprite(300,500,'man');
+		player.scale.setTo(0.1,0.1);
+		smallGame.physics.arcade.enable(player);
+		// stickMan.body.gravity.y = 10
+		player.body.bounce.y = 0.3;
+		player.body.collideWorldBounds = true;
+
+		// added drop ceiling
+		ceiling = smallGame.add.group()
+		ceiling.enableBody = true;
+
+		greywall = ceiling.create(-10,-700,'wall');
+		greywall.scale.setTo(1,1);
+		greywall.body.allowGravity = false;
+		smallGame.physics.arcade.enable(greywall);
+		greywall.body.collideWorldBounds = false;
+		greywall.body.setSize(300,300,400,400);
+
+		// add scoreboard 
+		scoreText = smallGame.add.text(16,16,'Score:0', {
+			fontSize: '32px', fill: '#fff'
+		});
+
+		smallGame.add.tween(step4).to({ y: 200 }, 4000, Phaser.Easing.Quadratic.InOut, true, 0, 3000, true);
+		smallGame.add.tween(step).to({ x: 300 }, 4000, Phaser.Easing.Quadratic.InOut, true, 0, 3000, true);
+
+		//adding keyboard code to move stick figure
+		upKey = smallGame.input.keyboard.addKey(Phaser.Keyboard.UP);
+    downKey = smallGame.input.keyboard.addKey(Phaser.Keyboard.DOWN);
+    leftKey = smallGame.input.keyboard.addKey(Phaser.Keyboard.LEFT);
+    rightKey = smallGame.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+
+	}
+
+	function collectJewels(player, jewel){
+		jewel.kill();
+
+		score += 20;
+		scoreText.text = 'Score: ' + score;
+	}
+
+
+	function collectMelons(player, melon){
+		melon.kill();
+
+		// score += 100;
+		score += 50;
+		scoreText.text = 'Score: ' + score;
+
+		// melonText.text = 'Score: ' + melonScore;
+	}
+
+	function deadMan(player, greywall){
+		player.kill();
+
+		$('#smLoser').modal('show');
+	}
+
+
+	
+	function update(){
+		if (wallIsMoving) {
+			greywall.y += wallSpeed;
+		}
+		
+		smallGame.physics.arcade.collide(jewels, steps)
+		smallGame.physics.arcade.collide(melons, steps)
+		smallGame.physics.arcade.collide(player, steps)
+
+		smallGame.physics.arcade.collide(player, ceiling, deadMan, null, this)
+		smallGame.physics.arcade.overlap(player, ceiling, deadMan, null, this)
+
+		smallGame.physics.arcade.collide(melons, jewels, collectJewels, null, this)
+		smallGame.physics.arcade.overlap(player, jewels, collectJewels, null, this)
+
+		smallGame.physics.arcade.collide(player, melons, collectMelons, null,this)
+		smallGame.physics.arcade.overlap(player,melons,collectMelons, null, this)
+		
+
+		// step4.y -= 0.8;
+
+		// if(step4.x < -step4.width){
+		// 	step4.x = smallGame.world.width;
+		// }
+
+		// if(step4.y < -step4.height){
+		// 	step4.y = smallGame.world.height-100;
+		// }
+		if(greywall.y > -50 && wallSpeed != 0){
+			clearInterval(wallSwapInterval);
+			wallIsMoving = false;
+		} 
+
+		// 	console.log(greywall.y)
+		// }, 5000)
+
+		// move stickman
+		if (upKey.isDown){
+			player.y-= stickSpeed;
+		}else if(downKey.isDown){
+			player.y+= stickSpeed;
+		} 
+		if (leftKey.isDown){
+			player.x-= stickSpeed;
+		}else if (rightKey.isDown){
+			player.x+= stickSpeed;
+		}
+	}
+
+
+</script>
