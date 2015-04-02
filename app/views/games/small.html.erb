@@ -22,7 +22,7 @@ var scoreText;
 // var melonText;
 
 var wallIsMoving = false;
-var wallSpeed = 0.5;
+var wallSpeed = 0.7;
 var wallSwapInterval;
 
 	var smallGame = new Phaser.Game(1205 - 50 ,581 -50, Phaser.Canvas,'',{preload: preload, create: create, update: update})
@@ -48,7 +48,7 @@ var wallSwapInterval;
 		// });
 		
 		smallGame.physics.startSystem(Phaser.Physics.ARCADE);
-		smallGame.physics.arcade.gravity.y = 200;
+		smallGame.physics.arcade.gravity.y = 150;
 
 		jewels = smallGame.add.group();
 		jewels.enableBody = true;
@@ -160,13 +160,12 @@ var wallSwapInterval;
 	}
 
 	var newLevel = function(){
-		if(score === 700){
-			$('#heights-canvas').fadeOut(3000, function () {
+		if(score >= 500){
+			$('#small-canvas').fadeOut(3000, function () {
 				window.location.replace("<%= dark_url %>");
 			});
 		}
 	}
-
 	
 	function update(){
 		newLevel();
@@ -180,7 +179,7 @@ var wallSwapInterval;
 		smallGame.physics.arcade.collide(player, steps)
 
 		smallGame.physics.arcade.collide(player, ceiling, deadMan, null, this)
-		// smallGame.physics.arcade.overlap(player, ceiling, deadMan, null, this)
+		smallGame.physics.arcade.overlap(player, ceiling, deadMan, null, this)
 
 		smallGame.physics.arcade.collide(player, jewels, collectJewels, null, this)
 		smallGame.physics.arcade.overlap(player, jewels, collectJewels, null, this)
@@ -204,6 +203,10 @@ var wallSwapInterval;
 			player.x-= stickSpeed;
 		}else if (rightKey.isDown){
 			player.x+= stickSpeed;
+		}
+
+		if(upKey.isDown && player.body.y >= 1){
+			player.body.velocity.y = -50;
 		}
 	}
 
