@@ -159,16 +159,14 @@ var wallSwapInterval;
 		$('#smLoser').modal('show');
 	}
 
-	var nextLevel = function(){
-
-		if(score === 700){
-			setTimeout(function(){
-				window.location.replace("https://fearfury.herokuapp.com/dark");
-				$('#small-canvas').fadeOut(3000, function(){nextLevel()});
-				
-			},400)
+	var newLevel = function(){
+		if(score === 500){
+			$('#heights-canvas').fadeOut(3000, function () {
+				window.location.replace("<%= dark_url %>");
+			});
 		}
 	}
+
 	
 	function update(){
 		nextLevel();
