@@ -8,6 +8,7 @@ class ScoresController < ApplicationController
 	end
 
 	def create
+	
 		score = Score.create(score_params)
 
 		respond_to do |format|
