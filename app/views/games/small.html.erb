@@ -5,25 +5,19 @@
       <!--   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>  -->
       </div>
       <div class="modal-body">
-<<<<<<< HEAD
+
       	<p class='h1 loser-sign'></p>
       	<label>Name</label>
       	<input id="alias" type='text' placeholer='alias'>
       	<button type="button" class="btn btn-default" id="add-score">Add Score</button>
         <a type="button" href='/' class="btn btn-sm btn-default col-sm-offset-3 col-sm-6 play-again">PLAY AGAIN?</a>
-=======
-      	<p class='h1'>YOU LOSE!!</p>
-      </div>
-      <div class="modal-footer">
-        <a type="button" href='/' class="btn btn-sm btn-default col-sm-offset-3 col-sm-6">PLAY AGAIN?</a>
->>>>>>> 7d93489ba4c2d89a57c881942da1dd13a44ce82a
       </div>
     </div>
   </div>
 </div>
 
 <script>
-<<<<<<< HEAD
+
 	var stickSpeed = 3;
 	var score = 0;
 	var scoreText; 
@@ -33,17 +27,10 @@
 	var wallIsMoving = false;
 	var wallSpeed = 0.7;
 	var wallSwapInterval;
-=======
-var stickSpeed = 3;
-var score = 0;
-var scoreText; 
-// var melonScore = 0;
-// var melonText;
 
-var wallIsMoving = false;
-var wallSpeed = 0.7;
-var wallSwapInterval;
->>>>>>> 7d93489ba4c2d89a57c881942da1dd13a44ce82a
+
+
+
 
 	var smallGame = new Phaser.Game(1205 - 50 ,581 -50, Phaser.Canvas,'',{preload: preload, create: create, update: update})
 
@@ -149,15 +136,10 @@ var wallSwapInterval;
 
 		//adding keyboard code to move stick figure
 		upKey = smallGame.input.keyboard.addKey(Phaser.Keyboard.UP);
-<<<<<<< HEAD
 	  downKey = smallGame.input.keyboard.addKey(Phaser.Keyboard.DOWN);
 	  leftKey = smallGame.input.keyboard.addKey(Phaser.Keyboard.LEFT);
 	  rightKey = smallGame.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
-=======
-    downKey = smallGame.input.keyboard.addKey(Phaser.Keyboard.DOWN);
-    leftKey = smallGame.input.keyboard.addKey(Phaser.Keyboard.LEFT);
-    rightKey = smallGame.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
->>>>>>> 7d93489ba4c2d89a57c881942da1dd13a44ce82a
+
 
 	}
 
@@ -183,10 +165,9 @@ var wallSwapInterval;
 		player.kill();
 
 		$('#smLoser').modal('show');
-<<<<<<< HEAD
 		$('.loser-sign').text('You Lose! Your score is ' + score);
-	}
 
+}
 	// grab user alias and score
 	// send to server
 	// show scores
@@ -209,10 +190,6 @@ var wallSwapInterval;
 		})
 	})
 
-=======
-	}
-
->>>>>>> 7d93489ba4c2d89a57c881942da1dd13a44ce82a
 	var newLevel = function(){
 		if(score >= 500){
 			$('#small-canvas').fadeOut(3000, function () {
