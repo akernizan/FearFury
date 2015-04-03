@@ -6,4 +6,7 @@ Rails.application.routes.draw do
   get 'small' => 'games#small', as: :small
 
   get 'dark' => 'games#dark', as: :dark 
+
+  resources :scores, :only => [:create, :index]
+
 end

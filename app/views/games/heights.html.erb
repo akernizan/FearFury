@@ -5,10 +5,10 @@
       <!--   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>  -->
       </div>
       <div class="modal-body">
-      	<p class='h1'>YOU LOSE!!</p>
-      </div>
-      <div class="modal-footer">
-        <a type="button" href='/' class="btn btn-sm btn-default col-sm-offset-3 col-sm-6">PLAY AGAIN?</a>
+      	<p class='h1 loser-sign'></p>
+      	<input id="alias" type='text' placeholer='alias'>
+      	<button type="button" class="btn btn-default" id="add-score">Add Score</button>
+        <a type="button" href='/' class="btn btn-sm btn-default col-sm-offset-3 col-sm-6 play-again">PLAY AGAIN?</a>
       </div>
     </div>
   </div>
@@ -180,14 +180,36 @@
 	function deadMan(player, fireball){
 		// if stickman gets hit by fireball
 		// he gets killed
+		// get player score
 		player.kill();
 
 		// activate modal
 		$('#loser').modal('show');
+		$('.loser-sign').text('You Lose! Your score is ' + score);
+		
+		$('#add-score').on('click', function(){
+			var values = {
+				scores: {
+					alias: $('#alias').val(),
+					score: score
+				}
+			}
+			// debugger;
+
+			$.ajax({
+				url: '/scores',
+				method: 'POST',
+				data: values,
+				dataType: 'json',
+				success: function(data){
+					console.log(data);
+				}
+			})
+		})
 	}
 
 	var newLevel = function(){
-		if(score >= 300){
+		if(score >= 500){
 			$('#heights-canvas').fadeOut(3000, function () {
 				window.location.replace("<%= small_url %>");
 			});

@@ -8,10 +8,10 @@ body{
 	font-size: 900%;
 }
 
-.site-wrapper{
+#top-wrap{
+	margin: 3%;
 	position: absolute;
 	z-index: 1;
-	margin-top: 75px;
 }
 
 #ctn-game{
@@ -21,8 +21,8 @@ body{
 		}
 }
 
-canvas {
-	margin: 50px;
+.play-again{
+	margin-top: 10px;
 }
 
 #home-canvas{
@@ -31,6 +31,7 @@ canvas {
 
 #small-canvas, #dark-canvas, #heights-canvas, #home-canvas{
 	border: 4px solid #b3b3b3;
+	margin: 50px;
 }
 
 .modal-header{
@@ -44,5 +45,9 @@ canvas {
 .modal-content{
 	 border-radius: 2px;
 	 height: 200px;
+}
+
+.modal-body{
+	overflow: auto;
 }
 

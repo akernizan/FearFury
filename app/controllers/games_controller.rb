@@ -12,6 +12,4 @@ class GamesController < ApplicationController
 	def dark
 	end
 
-	def spiders
-	end
 end
