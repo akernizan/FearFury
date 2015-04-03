@@ -1,3 +1,4 @@
+
 <div class="modal fade  text-center" id="darkWinner" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -25,10 +26,6 @@
       	<input id="alias" type='text' placeholer='alias'>
       	<button type="button" class="btn btn-default" id="add-score">Add Score</button>
         <a type="button" href='/' class="btn btn-sm btn-default col-sm-offset-3 col-sm-6 play-again">PLAY AGAIN?</a>
-      </div>
-    </div>
-  </div>
-</div>
 
 
 
@@ -220,6 +217,7 @@
 		}
 	}
 
+
 	$('#add-score').on('click', function(){
 			var values = {
 				score: {
@@ -238,6 +236,7 @@
 				}
 			})
 	})
+
 
 	function update(){
 		darkGame.physics.arcade.collide(players, lasers, death, null, this);
@@ -266,6 +265,28 @@
 		}
 
 		Winner();
+
+
+		// if(spaceBar.isDown){
+		// 	laserEye(0.5,-800, 800);
+		// 	laserEye2(0.5,-600, 600); 
+		// }
+
+		// if(spaceBar.isDown && boss.x >= darkGame.world.width){
+		// 	laserEye(0.5,800, -800);
+		// 	laserEye2(0.5,600, -600); 
+		// }
+
+		// if(spaceBar.isDown){
+			
+		// 	console.log('right eye')
+		// }
+
+		// setInterval(function(){
+
+		// 	laserEye(0.5,-800, 800);
+		// 	laserEye2(0.5,-600, 600) ;
+		// }, 2000)
 
 	}
 
