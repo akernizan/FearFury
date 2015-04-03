@@ -1,18 +1,20 @@
 class ScoresController < ApplicationController
 	def index
-		scores = Score.all.sort_by { |score| score.total }
+		@scores = Score.all
+		# .sort_by { |score| score.total }
 
 		respond_to do |format|
-			format.json {render :json => scores}
+			format.html
+			format.json {render :json => @scores}
 		end
 	end
 
 	def create
 	
-		score = Score.create(score_params)
+		@score = Score.create(score_params)
 
 		respond_to do |format|
-			format.json {render :json => score}
+			format.json {render :json => @score}
 		end
 	end
 
