@@ -34,6 +34,8 @@
 	var height;
 	var width;
 	var firballInt;
+
+	// start game code
 	var heightsGame = new Phaser.Game(1205 - 50 ,581 -50, Phaser.Canvas, '', {preload: preload, create: create, update: update})
 	var stickSpeed = 3;
 	
@@ -63,18 +65,22 @@
 		// add platforms to canvas 
 		platforms = heightsGame.add.group();
 		platforms.enableBody = true;
+
 		ledge = platforms.create(Math.floor(Math.random()*90),200, 'platform');
 		ledge.scale.setTo(0.25,0.25);
 		ledge.body.allowGravity = false;
 		ledge.body.immovable = true;
+
 		ledge2 = platforms.create(800,400,'platform');
 		ledge2.scale.setTo(0.25,0.25);
 		ledge2.body.allowGravity = false;
 		ledge2.body.immovable = true;
+
 		ledge3 = platforms.create(100,420,'platform');
 		ledge3.scale.setTo(0.25,0.25);
 		ledge3.body.allowGravity = false;
 		ledge3.body.immovable = true;
+
 		ledge4 = platforms.create(870,150,'platform');
 		ledge4.scale.setTo(0.25,0.25);
 		ledge4.body.allowGravity = false;
@@ -83,6 +89,7 @@
 		ledge5 = platforms.create(0,530,'ground');
 		ledge5.body.allowGravity = false;
 		ledge5.body.immovable = true;
+		
 		ledge6 = platforms.create(400,300,'platform');
 		ledge6.scale.setTo(0.25,0.25);
 		ledge6.body.allowGravity = false;
