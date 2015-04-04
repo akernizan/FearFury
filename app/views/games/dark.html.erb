@@ -5,8 +5,7 @@
       <div class="modal-header">
       </div>
       <div class="modal-body">
-      	<p class='h1'>WINNER!!</p>
-      		<p class='h1 loser-sign'></p>
+      	<p class='h1 winner-sign'></p>
       		<label>Name</label>
       	<input id="alias" type='text' placeholer='alias'>
       	<button type="button" class="btn btn-default" id="add-score">Add Score</button>
@@ -64,6 +63,7 @@
 		darkGame.load.audio('laser', './sounds/lazer.mp3');
 		darkGame.load.audio('cling', './sounds/diamond.mp3');
 		darkGame.load.audio('fruit', './sounds/fruitgrab.mp3');
+		darkGame.load.audio('death', './sounds/deathsplosion.mp3');
 	}
 
 	function create(){
@@ -74,6 +74,7 @@
 		cling = this.game.add.audio('cling');
 		laser = this.game.add.audio('laser');
 		fruit = this.game.add.audio('fruit');
+		death = this.game.add.audio('death');
   
     playMusic = function(){
       theme.play(); 
@@ -199,18 +200,20 @@
     	laser.body.velocity.y = yVelocity;
     	return laser;
     }
-    setTimeout(function(){
+
+    bossMover = setTimeout(function(){
     	darkGame.add.tween(boss).to({ x: darkGame.world.width - 400}, 4000, Phaser.Easing.Quadratic.InOut, true, 0, 3000, true);
     	setInterval(function(){
-    		laser.play();
+    		// 	laser.play();
     		laserEye(0.5,-800, 800);
 				laserEye2(0.5,-600, 600); 
     	}, 1000)	
     }, 2000)
 
+    // setInterval(function(){
+    // 	laser.play();
+    // }, 1000)
     
-
-
     // add scoreboard 
 		scoreText = darkGame.add.text(16,16,'score:0', {
 			fontSize: '32px', fill: '#fff'
@@ -234,17 +237,24 @@
 	}
 
 
-	function death(){
+	function Death(){
 		players.kill();
+		death.play();
 
 		$('#darkLoser').modal('show');
 		$('.loser-sign').text('You Lose! Your score is ' + score);
 	}
 
-	function Winner(){
-		if(score === 800){
-			console.log('WINNER!!');
+	var Winner = function(){
+		if(score >= 800){
+			$('#darkWinner').modal('show');
+			$('.winner-sign').text('Winner!! Your score is ' + score);
+			stopAnimation();
 		}
+	}
+
+	var stopAnimation = function(){
+		boss.stop();
 	}
 
 
@@ -269,8 +279,8 @@
 
 
 	function update(){
-		darkGame.physics.arcade.collide(players, lasers, death, null, this);
-		darkGame.physics.arcade.overlap(players, lasers, death, null, this);
+		darkGame.physics.arcade.collide(players, lasers, Death, null, this);
+		darkGame.physics.arcade.overlap(players, lasers, Death, null, this);
 
 		darkGame.physics.arcade.collide(players, gems, collectGems, null, this);
 		darkGame.physics.arcade.overlap(players, gems, collectGems, null, this);
