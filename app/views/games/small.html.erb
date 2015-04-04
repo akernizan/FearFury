@@ -46,6 +46,7 @@
 		smallGame.load.audio('laser', './sounds/lazer.mp3');
 		smallGame.load.audio('cling', './sounds/diamond.mp3');
 		smallGame.load.audio('fruit', './sounds/fruitgrab.mp3');
+		smallGame.load.audio('death', './sounds/deathsplosion.mp3');
 	}
 
 	function create(){
@@ -58,6 +59,7 @@
 		theme = this.game.add.audio('theme');
 		cling = this.game.add.audio('cling');
 		fruit = this.game.add.audio('fruit');
+		death = this.game.add.audio('death');
   
     playMusic = function(){
       theme.play(); 
@@ -184,6 +186,7 @@
 
 	function deadMan(player, greywall){
 		player.kill();
+		death.play();
 
 		$('#smLoser').modal('show');
 		$('.loser-sign').text('You Lose! Your score is ' + score);
