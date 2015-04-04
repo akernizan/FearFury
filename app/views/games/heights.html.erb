@@ -50,6 +50,7 @@
 		heightsGame.load.audio('theme', './sounds/theme.mp3');
 		heightsGame.load.audio('laser', './sounds/lazer.mp3');
 		heightsGame.load.audio('cling', './sounds/diamond.mp3');
+		heightsGame.load.audio('death', './sounds/deathsplosion.mp3');
 	}
 	function create(){
 	
@@ -58,9 +59,11 @@
 		this.game.canvas.id = 'heights-canvas';
 		heightsGame.stage.backgroundColor = '#7ec0ee';
 
+
 		theme = this.game.add.audio('theme');
 		cling = this.game.add.audio('cling');
 		laser = this.game.add.audio('laser');
+		death = this.game.add.audio('death');
 
 		// enabled arcade physics to game 
 		heightsGame.physics.startSystem(Phaser.Physics.ARCADE);
@@ -171,6 +174,7 @@
 		// he gets killed
 		// get player score
 		player.kill();
+		death.play();
 		// activate modal
 		$('#loser').modal('show');
 		$('.loser-sign').text('You Lose! Your score is ' + score);
@@ -196,12 +200,22 @@
 	})
 	var newLevel = function(){
 		if(score >= 500){
-			fireballs.animation.stop();
 			$('#heights-canvas').fadeOut(3000, function () {
 				window.location.replace("<%= small_url %>");
 			});
+			stopAnimation();
 		}
 	}
+
+
+	var stopAnimation = function(){
+		fireball.stop();
+	}
+
+
+
+
+
 	function update(){
 		newLevel();
 		heightsGame.physics.arcade.collide(player, platforms);
