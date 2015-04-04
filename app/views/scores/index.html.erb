@@ -3,8 +3,8 @@
 	<div id="inner-container" class="col-sm-offset-3 col-sm-6">
 		<% @scores.each do |info| %>
 			<section class="leader-board">
-				<%= info.player  %>
-				<%= info.total  %>
+				<span class="score-num"> <%= info.player  %> </span>
+				<span class="score-num"> <%= info.total  %> </span>
 			</section>
 		<% end %>
 	</div>
@@ -31,14 +31,14 @@
 		diamonds.enableBody = true;
 		// add more diamonds
 		// setInterval(function(){
-			for(var i =0; i < 40; i++){
-				var diamond = diamonds.create(i * 30, 0, 'diamond');
-				diamond.scale.setTo(0.5,0.5)
-				diamond.body.gravity.y = 3;
-				diamond.body.bounce.y = 0.2 + Math.random() * 0.3;
-				diamond.lifespan = 5000;
-			}
-		// }, 90)
+			// for(var i =0; i < 40; i++){
+			// 	var diamond = diamonds.create(i * 30, 0, 'diamond');
+			// 	diamond.scale.setTo(0.5,0.5)
+			// 	diamond.body.gravity.y = 3;
+			// 	diamond.body.bounce.y = 0.2 + Math.random() * 0.3;
+			// 	diamond.lifespan = 5000;
+			// }
+		// }, 4000)
 
 
 		floor = leaderBoard.add.group();
