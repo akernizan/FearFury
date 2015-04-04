@@ -26,7 +26,10 @@
       	<input id="alias" type='text' placeholer='alias'>
       	<button type="button" class="btn btn-default" id="add-score">Add Score</button>
         <a type="button" href='/' class="btn btn-sm btn-default col-sm-offset-3 col-sm-6 play-again">PLAY AGAIN?</a>
-
+      </div>
+    </div>
+  </div>
+</div>
 
 
 <script>
@@ -56,14 +59,35 @@
 		darkGame.load.image('gems', './images/diamond.png');
 		darkGame.load.image('darkforms', './images/bossplatform.png');
 		darkGame.load.image('pineapple','./images/pineapple.png');
+
+		darkGame.load.audio('theme', './sounds/theme.mp3');
+		darkGame.load.audio('laser', './sounds/lazer.mp3');
+		darkGame.load.audio('cling', './sounds/diamond.mp3');
+		darkGame.load.audio('fruit', './sounds/fruitgrab.mp3');
 	}
 
 	function create(){
 		darkGame.canvas.id = 'dark-canvas'
 		darkGame.stage.backgroundColor = '#423';
 
+		theme = this.game.add.audio('theme');
+		cling = this.game.add.audio('cling');
+		laser = this.game.add.audio('laser');
+		fruit = this.game.add.audio('fruit');
+  
+    playMusic = function(){
+      theme.play(); 
+      setInterval(function(){
+        setTimeout(function(){
+          theme.play();
+        }, 375);
+      }, 90000)
+    }
+
+    playMusic();
+
 		darkGame.physics.startSystem(Phaser.Physics.ARCADE);
-		darkGame.physics.arcade.gravity.y = 200;
+		darkGame.physics.arcade.gravity.y = 500;
 
 		// adding platforms
 		grounds = darkGame.add.group();
@@ -178,10 +202,13 @@
     setTimeout(function(){
     	darkGame.add.tween(boss).to({ x: darkGame.world.width - 400}, 4000, Phaser.Easing.Quadratic.InOut, true, 0, 3000, true);
     	setInterval(function(){
+    		laser.play();
     		laserEye(0.5,-800, 800);
 				laserEye2(0.5,-600, 600); 
     	}, 1000)	
     }, 2000)
+
+    
 
 
     // add scoreboard 
@@ -192,6 +219,7 @@
 
 	function collectGems(player, gem){
 		gem.kill();
+		cling.play();
 
 		score += 75;
 		scoreText.text = 'Score: ' + score;
@@ -199,6 +227,7 @@
 
 	function collectPineapple(player, orb){
 		orb.kill();
+		fruit.play();
 
 		score += 150;
 		scoreText.text = 'Score: ' + score;
@@ -209,6 +238,7 @@
 		players.kill();
 
 		$('#darkLoser').modal('show');
+		$('.loser-sign').text('You Lose! Your score is ' + score);
 	}
 
 	function Winner(){
@@ -251,6 +281,7 @@
 
 		darkGame.physics.arcade.collide(gems, grounds);
 		darkGame.physics.arcade.collide(orbs, grounds);
+		darkGame.physics.arcade.collide(players, grounds);
 
 			
 		if (upKey.isDown){
@@ -266,28 +297,10 @@
 
 		Winner();
 
-
-		// if(spaceBar.isDown){
-		// 	laserEye(0.5,-800, 800);
-		// 	laserEye2(0.5,-600, 600); 
-		// }
-
-		// if(spaceBar.isDown && boss.x >= darkGame.world.width){
-		// 	laserEye(0.5,800, -800);
-		// 	laserEye2(0.5,600, -600); 
-		// }
-
-		// if(spaceBar.isDown){
-			
-		// 	console.log('right eye')
-		// }
-
-		// setInterval(function(){
-
-		// 	laserEye(0.5,-800, 800);
-		// 	laserEye2(0.5,-600, 600) ;
-		// }, 2000)
-
+		if(upKey.isDown && players.body.y >= 1){
+			players.body.velocity.y = -5;
+	
+		}
 	}
 
 		

@@ -46,6 +46,10 @@
 		heightsGame.load.image('platform', './images/longplatform.png');
 		heightsGame.load.image('ground', './images/ground.png');
 		heightsGame.load.image('fire', './images/red_ball.png');
+
+		heightsGame.load.audio('theme', './sounds/theme.mp3');
+		heightsGame.load.audio('laser', './sounds/lazer.mp3');
+		heightsGame.load.audio('cling', './sounds/diamond.mp3');
 	}
 	function create(){
 	
@@ -53,9 +57,14 @@
 		width = heightsGame.world.width;
 		this.game.canvas.id = 'heights-canvas';
 		heightsGame.stage.backgroundColor = '#7ec0ee';
+
+		theme = this.game.add.audio('theme');
+		cling = this.game.add.audio('cling');
+		laser = this.game.add.audio('laser');
+
 		// enabled arcade physics to game 
 		heightsGame.physics.startSystem(Phaser.Physics.ARCADE);
-		heightsGame.physics.arcade.gravity.y = 200;
+		heightsGame.physics.arcade.gravity.y = 500;
 		//add clouds to canvas
 		for (var i = 0; i < positions.length; i++) {
 			var cloud = heightsGame.add.sprite(positions[i][0],positions[i][1],'cloud');
@@ -136,6 +145,7 @@
 		}
 		// set interval to shoot firballs
 		firballInt = setInterval(function(){
+			laser.play();
 		 	 fireShooter(900,height/4,0.9,-600),
 			 // fireShooter(100,500,0.7,600),
 			 fireShooter(0,height/2,0.7,600),
@@ -150,6 +160,7 @@
 	};
 	function collectDiamonds(player, diamond){
 		// removes diamonds from canvas
+		cling.play();
 		diamond.kill();
 		// add and update the score
 		score += 20;
@@ -219,7 +230,7 @@
 			player.x+= stickSpeed;
 		}
 		if(upKey.isDown && player.body.y >= 1){
-			player.body.velocity.y = -10;
+			player.body.velocity.y = -5;
 		}
 	};
 </script>

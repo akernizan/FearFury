@@ -41,6 +41,11 @@
 		smallGame.load.image('diamond', './images/diamond.png');
 		smallGame.load.image('man', './images/stickman.png');
 		smallGame.load.image('melon', './images/melon.png');
+
+		smallGame.load.audio('theme', './sounds/theme.mp3');
+		smallGame.load.audio('laser', './sounds/lazer.mp3');
+		smallGame.load.audio('cling', './sounds/diamond.mp3');
+		smallGame.load.audio('fruit', './sounds/fruitgrab.mp3');
 	}
 
 	function create(){
@@ -50,12 +55,27 @@
 		this.game.canvas.id = "small-canvas"
 		smallGame.stage.backgroundColor = "#334";
 
+		theme = this.game.add.audio('theme');
+		cling = this.game.add.audio('cling');
+		fruit = this.game.add.audio('fruit');
+  
+    playMusic = function(){
+      theme.play(); 
+      setInterval(function(){
+        setTimeout(function(){
+          theme.play();
+        }, 375);
+      }, 90000)
+    }
+
+    playMusic();
+
 		// melonText = smallGame.add.text(16,40, 'Melons:0',{
 		// 	fontSize: '32px', fill: '#fff'
 		// });
 		
 		smallGame.physics.startSystem(Phaser.Physics.ARCADE);
-		smallGame.physics.arcade.gravity.y = 150;
+		smallGame.physics.arcade.gravity.y = 500;
 
 		jewels = smallGame.add.group();
 		jewels.enableBody = true;
@@ -145,6 +165,7 @@
 
 	function collectJewels(player, jewel){
 		jewel.kill();
+		cling.play();
 
 		score += 20;
 		scoreText.text = 'Score: ' + score;
@@ -153,7 +174,7 @@
 
 	function collectMelons(player, melon){
 		melon.kill();
-
+		fruit.play();
 		// score += 100;
 		score += 50;
 		scoreText.text = 'Score: ' + score;
@@ -237,7 +258,7 @@
 		}
 
 		if(upKey.isDown && player.body.y >= 1){
-			player.body.velocity.y = -50;
+			player.body.velocity.y = -5;
 		}
 	}
 

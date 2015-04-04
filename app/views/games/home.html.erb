@@ -129,11 +129,26 @@
 
   function preload(){
     game.load.image('cloud', './images/cloud.png');
+    game.load.audio('theme', './sounds/theme.mp3');
   }
 
   function create(){
+
     this.game.canvas.id = 'home-canvas';
     game.stage.backgroundColor = '#7ec0ee';
+
+    theme = this.game.add.audio('theme');
+  
+    playMusic = function(){
+      theme.play(); 
+      setInterval(function(){
+        setTimeout(function(){
+          theme.play();
+        }, 375);
+      }, 90000)
+    }
+
+    playMusic();
     
     for (var i = 0; i < positions.length; i++) {
       var cloud = game.add.sprite(positions[i][0],positions[i][1],'cloud');
