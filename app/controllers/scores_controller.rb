@@ -1,7 +1,7 @@
 class ScoresController < ApplicationController
 	def index
 		# Pry.start(binding)
-		@scores = Score.all.sort_by{ |num| num.total }
+		@scores = Score.all.sort { |a,b| b[:total] <=> a[:total] }
 
 		respond_to do |format|
 			format.html
