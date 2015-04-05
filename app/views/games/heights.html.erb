@@ -135,8 +135,6 @@
 		fireballs.enableBody = true;
 		// function to shoot fireballs
     var fireShooter = function(x,y, size, velocity){
-			// var fireball_array = ['fire', 'fire', 'fire', 'fire','fire','fire'];
-			// random_fire = fireball_array[Math.floor(fireball_array.length * Math.random())];
 			fireball = fireballs.create(x,y,'fire');
 			heightsGame.physics.arcade.enable(fireball);
 			fireball.body.immovable = true;
@@ -146,6 +144,7 @@
 			fireball.lifespan = 2000;
 			return fireball;
 		}
+
 		// set interval to shoot firballs
 		firballInt = setInterval(function(){
 			laser.play();
@@ -155,12 +154,18 @@
 			 fireShooter(700, height/3, 0.6, 600),
 			 fireShooter(700, 0, 0.6, -600)
 			}, 2000)
+
 		//adding keyboard code to move stick figure
 		upKey = heightsGame.input.keyboard.addKey(Phaser.Keyboard.UP);
     downKey = heightsGame.input.keyboard.addKey(Phaser.Keyboard.DOWN);
     leftKey = heightsGame.input.keyboard.addKey(Phaser.Keyboard.LEFT);
     rightKey = heightsGame.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
 	};
+	// 	var stopAnimation = function(){
+	// 	fireball.animation.stop();
+	// }
+
+
 	function collectDiamonds(player, diamond){
 		// removes diamonds from canvas
 		cling.play();
@@ -175,6 +180,8 @@
 		// get player score
 		player.kill();
 		death.play();
+
+		// stopAnimation();
 		// activate modal
 		$('#loser').modal('show');
 		$('.loser-sign').text('You Lose! Your score is ' + score);
@@ -199,17 +206,13 @@
 			})
 	})
 	var newLevel = function(){
-		if(score >= 500){
+		if(score >= 300){
+			player.kill();
 			$('#heights-canvas').fadeOut(3000, function () {
 				window.location.replace("<%= small_url %>");
 			});
-			stopAnimation();
+			
 		}
-	}
-
-
-	var stopAnimation = function(){
-		fireball.stop();
 	}
 
 
