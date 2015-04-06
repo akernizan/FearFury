@@ -8,7 +8,9 @@
       		<label>Name</label>
       	<input id="alias" type='text' placeholer='alias'>
       	<button type="button" class="btn btn-default ctn-game" id="add-score">Add Score</button>
-        <a href="/" class="btn btn-default ctn-game">Home</a>
+      </div>
+      <div class="modal-footer">
+        <a type="button" href="/scores" class="btn btn-default ctn-game col-sm-offset-3 col-sm-6" >Leaderboard</a>
       </div>
     </div>
   </div>
@@ -24,7 +26,10 @@
       		<label>Name</label>
       	<input id="alias" type='text' placeholer='alias'>
       	<button type="button" class="btn btn-default ctn-game" id="add-score">Add Score</button>
+      </div>
+       <div class="modal-footer">
         <a type="button" href='/' class="btn btn-sm btn-default ctn-game col-sm-offset-3 col-sm-6 play-again">PLAY AGAIN?</a>
+        <!-- <a type="button" href="/" class="btn btn-default ctn-game" >Home</a> -->
       </div>
     </div>
   </div>
@@ -71,7 +76,7 @@
 
   function create(){
     darkGame.canvas.id = 'dark-canvas'
-    darkGame.stage.backgroundColor = '#423';
+    darkGame.stage.backgroundColor = '#222';
 
     theme = this.game.add.audio('theme');
     cling = this.game.add.audio('cling');
@@ -84,7 +89,7 @@
       setInterval(function(){
         setTimeout(function(){
           theme.play();
-        }, 375);
+        }, 300);
       }, 90000)
     }
 
@@ -142,6 +147,7 @@
     gems = darkGame.add.group();
     gems.enableBody = true;
 
+
     for(var i =0; i < 20; i++ ){
       var gem = gems.create(i * 60, 0, 'gems');
       gem.scale.setTo(0.5,0.5);
@@ -149,6 +155,7 @@
       gem.body.bounce.y = 0.2 + Math.random() * 0.2;
     }
 
+  
     // adding special obj for extra points
     orbs = darkGame.add.group();
     orbs.enableBody = true;
@@ -174,44 +181,37 @@
     lasers = darkGame.add.group();
     lasers.enableBody = true;
 
-    laserEye = function(size,xVelocity, yVelocity){
-      var laser_array = ['fireball','fireball','fireball','fireball','fireball','fireball',
-      'fireball'];
-      random_laser = laser_array[Math.floor(laser_array.length * Math.random())];
-      laser = lasers.create(boss.x + 100, boss.y + 120,random_laser);
+    // laserEye = function(size,xVelocity, yVelocity){
+    //   laser = lasers.create(boss.x + 100, boss.y + 120,'fireball');
       
-      darkGame.physics.arcade.enable(laser);
+    //   darkGame.physics.arcade.enable(laser);
       
-      laser.body.immovable = true;
-      laser.scale.setTo(size,size);
-      laser.body.velocity.x = xVelocity;
-      laser.body.velocity.y = yVelocity;
-      return laser;
-    }
+    //   laser.body.immovable = true;
+    //   laser.scale.setTo(size,size);
+    //   laser.body.velocity.x = xVelocity;
+    //   laser.body.velocity.y = yVelocity;
+    //   return laser;
+    // }
 
-    laserEye2 = function(size,xVelocity, yVelocity){
-        var laser_array = ['fireball','fireball','fireball','fireball','fireball','fireball',
-      'fireball'];
-      random_laser = laser_array[Math.floor(laser_array.length * Math.random())];
-
-      laser = lasers.create(boss.x + 215, boss.y + 120,random_laser);
+    // laserEye2 = function(size,xVelocity, yVelocity){
+    //   laser = lasers.create(boss.x + 215, boss.y + 120,'fireball');
  
-      darkGame.physics.arcade.enable(laser);
-      laser.body.immovable = true;
-      laser.scale.setTo(size,size);
-      laser.body.velocity.x = xVelocity;
-      laser.body.velocity.y = yVelocity;
-      return laser;
-    }
+    //   darkGame.physics.arcade.enable(laser);
+    //   laser.body.immovable = true;
+    //   laser.scale.setTo(size,size);
+    //   laser.body.velocity.x = xVelocity;
+    //   laser.body.velocity.y = yVelocity;
+    //   return laser;
+    // }
 
-    bossMover = setTimeout(function(){
-      darkGame.add.tween(boss).to({ x: darkGame.world.width - 400}, 4000, Phaser.Easing.Quadratic.InOut, true, 0, 3000, true);
-      setInterval(function(){
-        //  laser.play();
-        laserEye(0.5,-800, 800);
-        laserEye2(0.5,-600, 600); 
-      }, 1000)  
-    }, 2000)
+    // bossMover = setTimeout(function(){
+    //   darkGame.add.tween(boss).to({ x: darkGame.world.width - 400}, 4000, Phaser.Easing.Quadratic.InOut, true, 0, 3000, true);
+    //   setInterval(function(){
+    //     //  laser.play();
+    //     laserEye(0.5,-800, 800);
+    //     laserEye2(0.5,-600, 600); 
+    //   }, 1000)  
+    // }, 2000)
 
     // setInterval(function(){
     //  laser.play();
@@ -235,7 +235,7 @@
     orb.kill();
     fruit.play();
 
-    score += 150;
+    score += 80;
     scoreText.text = 'Score: ' + score;
   }
 
@@ -249,17 +249,17 @@
   }
 
   var Winner = function(){
-    if(score >= 1000){
+    if(score >= 1500){
       player.kill();
       $('#darkWinner').modal('show');
       $('.winner-sign').text('Winner!! Your score is ' + score);
-      stopAnimation();
+      // stopAnimation();
     }
   }
 
-  var stopAnimation = function(){
-    boss.stop();
-  }
+  // var stopAnimation = function(){
+  //   boss.stop();
+  // }
 
 
   $('#add-score').on('click', function(){
@@ -299,9 +299,9 @@
 
       
     if (upKey.isDown){
-      player.y-= bossSpeed;
+      // player.y-= bossSpeed;
     }else if(downKey.isDown){
-      player.y+= bossSpeed;
+      // player.y+= bossSpeed;
     } 
     if (leftKey.isDown){
       player.x-= bossSpeed;
@@ -314,9 +314,8 @@
 
     Winner();
 
-    if(upKey.isDown && player.body.y >= 1){
-      player.body.velocity.y = -5;
-  
+    if(upKey.isDown && player.body.touching.down){
+      player.body.velocity.y = -400;
     }
   }
 

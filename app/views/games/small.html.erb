@@ -10,7 +10,11 @@
       	<label>Name</label>
       	<input id="alias" type='text' placeholer='alias'>
       	<button type="button" class="btn btn-default ctn-game" id="add-score">Add Score</button>
-        <a type="button" href='/' class="btn btn-sm btn-default ctn-game col-sm-offset-3 col-sm-6 play-again">PLAY AGAIN?</a>
+       
+      </div>
+      <div class="modal-footer">
+         <a type="button" href='/' class="btn btn-sm btn-default ctn-game col-sm-offset-3 col-sm-6 play-again">PLAY AGAIN?</a>
+        <!-- <a type="button" href="/" class="btn btn-default ctn-game" >Home</a> -->
       </div>
     </div>
   </div>
@@ -255,7 +259,7 @@
     if (upKey.isDown){
       player.y-= stickSpeed;
     }else if(downKey.isDown){
-      player.y+= stickSpeed;
+      // player.y+= stickSpeed;
     } 
     if (leftKey.isDown){
       player.x-= stickSpeed;
@@ -267,8 +271,8 @@
        player.scale.x = -1.5;
     }
 
-    if(upKey.isDown && player.body.y >= 1){
-      player.body.velocity.y = -5;
+    if(upKey.isDown && player.body.touching.down){
+      player.body.velocity.y = -200;
     }
   }
 
