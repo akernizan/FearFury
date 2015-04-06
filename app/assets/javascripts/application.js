@@ -15,9 +15,9 @@
 //= require bootstrap
 //= require turbolinks
 //= require phaser
-//= require home
-//= require heights
-//= require small
-//= require dark
+// require home
+// require heights
+// require small
+// require dark
 
 
