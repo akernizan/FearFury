@@ -35,7 +35,7 @@
   </div>
 </div>
 
-<div id="dark"></div>
+<!-- <div id="dark"></div> -->
 
 <script>
   var eyes =[];
@@ -53,7 +53,7 @@
 
   var bossSpeed = 3;
 
-  var darkGame = new Phaser.Game(1155 ,531, Phaser.AUTO,'dark',{preload: preload, create: create, update: update})
+  var darkGame = new Phaser.Game(1155 ,531, Phaser.AUTO,'',{preload: preload, create: create, update: update})
 
   function preload(){
     darkGame.load.image('monster', './images/yellow-eye.png');

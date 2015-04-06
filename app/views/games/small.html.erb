@@ -20,7 +20,7 @@
   </div>
 </div>
 
-<div id="small"></div>
+<!-- <div id="small"></div> -->
 
 <script>
  
@@ -35,7 +35,7 @@
   var wallSwapInterval;
 
  
-  var smallGame = new Phaser.Game(1155 ,531, Phaser.AUTO,'small',{preload: preload, create: create, update: update})
+  var smallGame = new Phaser.Game(1155 ,531, Phaser.AUTO,'',{preload: preload, create: create, update: update})
 
   function preload(){
     smallGame.load.image('wall', './images/ceiling.png');
