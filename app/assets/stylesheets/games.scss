@@ -5,11 +5,11 @@ body{
 	overflow: hidden;
 }
 .cover-heading{
-	font-size: 900%;
+	font-size: 800%;
 }
 
 #top-wrap{
-	margin: 3%;
+	margin: 1%;
 	position: absolute;
 	z-index: 1;
 }
@@ -52,6 +52,9 @@ body{
 	 margin-top: 30%;
 }
 
+.directions{
+	margin: 1%;
+}
 
 input{
 	border-radius: 3px;
