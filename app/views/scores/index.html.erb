@@ -1,5 +1,6 @@
 <div id="top-container" class="container text-center">
 <h1 id="leader" class="text-center">LEADERS</h1>
+		
 	<div id="inner-container" class="col-sm-offset-3 col-sm-6">
 		<% @scores.each do |info| %>
 			<section class="leader-board">
@@ -7,8 +8,11 @@
 				<span class="score-num"> <%= info.total  %> </span>
 			</section>
 		<% end %>
+		<br>
+		<a href="/" class="btn btn-default ctn-game">Home</a>
 	</div>
 </div>
+
 
 <script>
  // canvas for leaderboard

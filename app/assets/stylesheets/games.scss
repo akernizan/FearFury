@@ -14,15 +14,20 @@ body{
 	z-index: 1;
 }
 
-#ctn-game{
+.ctn-game, .play-again{
 	border: 2px solid #222;
 		&:hover{
 			background: none;
+			border: 2px solid #222;
 		}
 }
 
 .play-again{
 	margin-top: 10px;
+		&:hover{
+			background: 'red';
+			border: 2px solid #222;
+		}
 }
 
 #home-canvas{
@@ -45,8 +50,10 @@ body{
 .modal-content{
 	 border-radius: 2px;
 	 height: 200px;
+	 margin-top: 30%;
 }
 
-.modal-body{
-	overflow: auto;
+
+input{
+	border-radius: 3px;
 }

@@ -1,4 +1,3 @@
-
 <div class="container" id="top-wrap">
   <div class='row'>
     <div class="site-wrapper text-center">
@@ -7,7 +6,8 @@
         <div class="inner cover">
           <h1 class="cover-heading">FEAR<br/>FURY</h1>
           <p class="lead text-center">
-            <a href="/heights" class="btn btn-lg btn-default" id="ctn-game">PLAY</a>
+            <a href="/heights" class="btn btn-lg btn-default ctn-game">PLAY</a>
+            <a href="/scores" class="btn btn-lg btn-default ctn-game" >Leaderboard</a>
           </p>
         </div>
         <div class="mastfoot">
@@ -27,8 +27,10 @@
 <div id="status">
 </div> -->
 
+<div id ="home"></div>
 
 <script>
+
   // // This is called with the results from from FB.getLoginStatus().
   // function statusChangeCallback(response) {
   //   console.log('statusChangeCallback');
@@ -125,7 +127,7 @@
   ]
 
 
-  var game = new Phaser.Game(1155,531, Phaser.Canvas, '', {preload: preload, create: create, update:update})
+  var game = new Phaser.Game(1155,531, Phaser.AUTO, 'home', {preload: preload, create: create, update:update})
 
   function preload(){
     game.load.image('cloud', './images/cloud.png');
@@ -173,4 +175,7 @@
       }
     };
   };
+
 </script>
+
+
