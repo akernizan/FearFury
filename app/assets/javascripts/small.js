@@ -198,7 +198,7 @@
     if(score >= 500){
       player.kill();
       $('#small-canvas').fadeOut(3000, function () {
-        window.location.replace("<%= dark_url %>");
+        window.location.replace("/dark");
       });
     }
   }

@@ -184,7 +184,7 @@ var clouds = [];
     if(score >= 500){
       player.kill();
       $('#heights-canvas').fadeOut(3000, function () {
-        window.location.replace("<%= small_url %>");
+        window.location.replace("/small");
       });
       
     }
