@@ -181,37 +181,37 @@
     lasers = darkGame.add.group();
     lasers.enableBody = true;
 
-    // laserEye = function(size,xVelocity, yVelocity){
-    //   laser = lasers.create(boss.x + 100, boss.y + 120,'fireball');
+    laserEye = function(size,xVelocity, yVelocity){
+      laser = lasers.create(boss.x + 100, boss.y + 120,'fireball');
       
-    //   darkGame.physics.arcade.enable(laser);
+      darkGame.physics.arcade.enable(laser);
       
-    //   laser.body.immovable = true;
-    //   laser.scale.setTo(size,size);
-    //   laser.body.velocity.x = xVelocity;
-    //   laser.body.velocity.y = yVelocity;
-    //   return laser;
-    // }
+      laser.body.immovable = true;
+      laser.scale.setTo(size,size);
+      laser.body.velocity.x = xVelocity;
+      laser.body.velocity.y = yVelocity;
+      return laser;
+    }
 
-    // laserEye2 = function(size,xVelocity, yVelocity){
-    //   laser = lasers.create(boss.x + 215, boss.y + 120,'fireball');
+    laserEye2 = function(size,xVelocity, yVelocity){
+      laser = lasers.create(boss.x + 215, boss.y + 120,'fireball');
  
-    //   darkGame.physics.arcade.enable(laser);
-    //   laser.body.immovable = true;
-    //   laser.scale.setTo(size,size);
-    //   laser.body.velocity.x = xVelocity;
-    //   laser.body.velocity.y = yVelocity;
-    //   return laser;
-    // }
+      darkGame.physics.arcade.enable(laser);
+      laser.body.immovable = true;
+      laser.scale.setTo(size,size);
+      laser.body.velocity.x = xVelocity;
+      laser.body.velocity.y = yVelocity;
+      return laser;
+    }
 
-    // bossMover = setTimeout(function(){
-    //   darkGame.add.tween(boss).to({ x: darkGame.world.width - 400}, 4000, Phaser.Easing.Quadratic.InOut, true, 0, 3000, true);
-    //   setInterval(function(){
-    //     //  laser.play();
-    //     laserEye(0.5,-800, 800);
-    //     laserEye2(0.5,-600, 600); 
-    //   }, 1000)  
-    // }, 2000)
+    bossMover = setTimeout(function(){
+      darkGame.add.tween(boss).to({ x: darkGame.world.width - 400}, 4000, Phaser.Easing.Quadratic.InOut, true, 0, 3000, true);
+      setInterval(function(){
+         // laser.play();
+        laserEye(0.5,-800, 800);
+        laserEye2(0.5,-600, 600); 
+      }, 1000)  
+    }, 2000)
 
     // setInterval(function(){
     //  laser.play();
