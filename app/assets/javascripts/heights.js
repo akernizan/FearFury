@@ -176,7 +176,7 @@ var clouds = [];
         data: values,
         dataType: 'json',
         success: function(data){
-          window.location.replace("http://localhost:3000");
+           $('#add-score').slideUp();
         }
       })
   })

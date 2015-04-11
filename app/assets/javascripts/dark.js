@@ -222,7 +222,7 @@
   // }
 
 
-  $('#add-score').on('click', function(){
+  $('.add-score-dark').on('click', function(){
       var values = {
         score: {
           player: $('#alias').val(),
@@ -236,7 +236,7 @@
         data: values,
         dataType: 'json',
         success: function(data){
-         
+           $('#add-score').slideUp();
         }
       })
   })

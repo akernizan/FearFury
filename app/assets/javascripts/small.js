@@ -175,13 +175,15 @@
   // grab user alias and score
   // send to server
   // show scores
-  $('#add-score').on('click', function(){
+  $('#add-score-small').on('click', function(){
     var values = {
       scores: {
-        alias: $('#alias').val(),
-        score: score
+        player: $('#alias').val(),
+        total: score
       }
     }
+
+    console.log(values);
 
     $.ajax({
       url: '/scores',
@@ -189,7 +191,7 @@
       data: values,
       dataType: 'json',
       success: function(data){
-        
+         $('#add-score-small').slideUp();
       }
     })
   })
