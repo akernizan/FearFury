@@ -12,10 +12,13 @@
 	color: #fff;
 	margin: 50px;
 	background: #7ec0ee;
+
 }
 
 #inner-container{
+	height: 400px;
 	padding: 20px;
+	overflow: scroll;
 }
 
 #leaderBoard{
