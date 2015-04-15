@@ -8,7 +8,7 @@ In the game you a pink cat and the aim is to collect diamonds and fruits until y
 You must dodge firballs and crushing ceilings to avoid death. 
 
 
-![Alt text](./public/images/fearfury.png?raw=true "Fear Fury")
+![Fear Fury](http://public/images/fearfury.png "Fear Fury")
 
 https://fearfury.herokuapp.com/
 
